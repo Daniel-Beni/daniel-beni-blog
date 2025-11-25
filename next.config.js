@@ -12,14 +12,8 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
 
-  // Configuration pour le déploiement
-  output: 'standalone',
+  // ENLEVÉ experimental.optimizeCss qui cause l'erreur critters
   
-  // Optimisations de performance
-  experimental: {
-    optimizeCss: true,
-  },
-
   // Headers de sécurité
   async headers() {
     return [
@@ -51,8 +45,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/blog',
-        destination: '/fr/blog',
+        source: '/',
+        destination: '/fr',
         permanent: false,
       },
     ];
