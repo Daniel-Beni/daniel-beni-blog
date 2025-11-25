@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "labs": "Labs",
+    "projects": "Projects",
+    "series": "Series",
+    "about": "About",
+    "search": "Search"
+  },
+  "home": {
+    "hero": {
+      "greeting": "Hello, I'm Daniel 👋",
+      "title": "Engineering Student – Software Development, Cloud, and Artificial Intelligence",
+      "subtitle": "I document my learning journey in Cloud, DevOps, Backend, Networking and Artificial Intelligence",
+      "cta": {
+        "blog": "View articles",
+        "projects": "My projects"
+      }
+    },
+    "featured": {
+      "title": "Featured Articles",
+      "viewAll": "View all articles"
+    },
+    "latestLabs": {
+      "title": "Latest Labs",
+      "viewAll": "View all labs"
+    },
+    "categories": {
+      "title": "Categories",
+      "cloud": "Cloud Computing",
+      "devops": "DevOps & CI/CD",
+      "backend": "Backend Development",
+      "networking": "Network & Security",
+      "ai": "AI & Data Science",
+      "emerging": "Emerging Technologies"
+    }
+  },
+  "blog": {
+    "title": "Technical Blog",
+    "description": "All my articles, tutorials and experience reports",
+    "filter": {
+      "all": "All",
+      "category": "Category",
+      "tags": "Tags",
+      "difficulty": "Level"
+    },
+    "readTime": "{minutes} min read",
+    "publishedOn": "Published on",
+    "updatedOn": "Updated on",
+    "author": "By",
+    "share": "Share",
+    "tableOfContents": "Table of contents",
+    "relatedArticles": "Related articles",
+    "series": "Series",
+    "partOf": "Part {current} of {total}",
+    "previousArticle": "Previous article",
+    "nextArticle": "Next article"
+  },
+  "labs": {
+    "title": "Practical Labs",
+    "description": "My labs and technical experiments",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "duration": "Estimated duration",
+    "prerequisites": "Prerequisites",
+    "objective": "Objective",
+    "implementation": "Implementation",
+    "results": "Results",
+    "lessonsLearned": "Lessons learned",
+    "resources": "Resources",
+    "nextSteps": "Next steps",
+    "viewOnGithub": "View on GitHub"
+  },
+  "projects": {
+    "title": "Projects Portfolio",
+    "description": "My personal and professional projects",
+    "status": {
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "archived": "Archived"
+    },
+    "techStack": "Tech Stack",
+    "liveDemo": "Live Demo",
+    "sourceCode": "Source Code",
+    "documentation": "Documentation"
+  },
+  "search": {
+    "placeholder": "Search for an article, lab or project...",
+    "noResults": "No results found",
+    "resultsFor": "Results for",
+    "showing": "Showing {count} results"
+  },
+  "footer": {
+    "description": "Personal technical blog documenting my learning in software engineering, cloud computing and artificial intelligence.",
+    "links": {
+      "title": "Quick Links",
+      "blog": "Blog",
+      "labs": "Labs",
+      "projects": "Projects",
+      "about": "About"
+    },
+    "categories": {
+      "title": "Topics"
+    },
+    "connect": {
+      "title": "Connect",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Email"
+    },
+    "copyright": "© {year} Daniel Beni Niyobuzima. All rights reserved.",
+    "builtWith": "Built with Next.js, TypeScript and Tailwind CSS"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "back": "Back",
+    "close": "Close",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "new": "New",
+    "popular": "Popular",
+    "featured": "Featured"
+  }
+}

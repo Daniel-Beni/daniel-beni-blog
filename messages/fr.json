@@ -1,0 +1,132 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "blog": "Blog",
+    "labs": "Labs",
+    "projects": "Projets",
+    "series": "Séries",
+    "about": "À propos",
+    "search": "Rechercher"
+  },
+  "home": {
+    "hero": {
+      "greeting": "Bonjour, je suis Daniel 👋",
+      "title": "Étudiant Ingénieur – Développement Logiciel, Cloud et Intelligence Artificielle",
+      "subtitle": "Je documente mon apprentissage en développement logiciel, Cloud, DevOps, backend, réseau et IA",
+      "cta": {
+        "blog": "Voir les articles",
+        "projects": "Mes projets"
+      }
+    },
+    "featured": {
+      "title": "Articles en vedette",
+      "viewAll": "Voir tous les articles"
+    },
+    "latestLabs": {
+      "title": "Derniers Labs",
+      "viewAll": "Voir tous les labs"
+    },
+    "categories": {
+      "title": "Sujets",
+      "cloud": "Cloud Computing",
+      "devops": "DevOps & CI/CD",
+      "backend": "Backend Development",
+      "networking": "Réseau & Sécurité",
+      "ai": "AI & Data Science",
+      "emerging": "Technologies Émergentes"
+    }
+  },
+  "blog": {
+    "title": "Blog Technique",
+    "description": "Tous mes articles, tutoriels et retours d'expérience",
+    "filter": {
+      "all": "Tous",
+      "category": "Catégorie",
+      "tags": "Tags",
+      "difficulty": "Niveau"
+    },
+    "readTime": "{minutes} min de lecture",
+    "publishedOn": "Publié le",
+    "updatedOn": "Mis à jour le",
+    "author": "Par",
+    "share": "Partager",
+    "tableOfContents": "Table des matières",
+    "relatedArticles": "Articles liés",
+    "series": "Série",
+    "partOf": "Partie {current} de {total}",
+    "previousArticle": "Article précédent",
+    "nextArticle": "Article suivant"
+  },
+  "labs": {
+    "title": "Travaux Pratiques",
+    "description": "Mes labs et expérimentations techniques",
+    "difficulty": {
+      "beginner": "Débutant",
+      "intermediate": "Intermédiaire",
+      "advanced": "Avancé"
+    },
+    "duration": "Durée estimée",
+    "prerequisites": "Prérequis",
+    "objective": "Objectif",
+    "implementation": "Implémentation",
+    "results": "Résultats",
+    "lessonsLearned": "Leçons apprises",
+    "resources": "Ressources",
+    "nextSteps": "Prochaines étapes",
+    "viewOnGithub": "Voir sur GitHub"
+  },
+  "projects": {
+    "title": "Portfolio Projets",
+    "description": "Mes projets personnels et professionnels",
+    "status": {
+      "inProgress": "En cours",
+      "completed": "Terminé",
+      "archived": "Archivé"
+    },
+    "techStack": "Stack technique",
+    "liveDemo": "Démo en ligne",
+    "sourceCode": "Code source",
+    "documentation": "Documentation"
+  },
+  "search": {
+    "placeholder": "Rechercher un article, lab ou projet...",
+    "noResults": "Aucun résultat trouvé",
+    "resultsFor": "Résultats pour",
+    "showing": "Affichage de {count} résultats"
+  },
+  "footer": {
+    "description": "Blog technique personnel documentant mon apprentissage en ingénierie logicielle, cloud computing et intelligence artificielle.",
+    "links": {
+      "title": "Liens rapides",
+      "blog": "Blog",
+      "labs": "Labs",
+      "projects": "Projets",
+      "about": "À propos"
+    },
+    "categories": {
+      "title": "Sujets"
+    },
+    "connect": {
+      "title": "Me suivre",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Email"
+    },
+    "copyright": "© {year} Daniel Beni Niyobuzima. Tous droits réservés.",
+    "builtWith": "Construit avec Next.js, TypeScript et Tailwind CSS"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "retry": "Réessayer",
+    "back": "Retour",
+    "close": "Fermer",
+    "copy": "Copier",
+    "copied": "Copié !",
+    "readMore": "Lire plus",
+    "viewAll": "Voir tout",
+    "new": "Nouveau",
+    "popular": "Populaire",
+    "featured": "En vedette"
+  }
+}

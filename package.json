@@ -1,0 +1,61 @@
+{
+  "name": "my-tech-watch-blog",
+  "version": "2.0.0",
+  "description": "Blog technique personnel pour documenter mon apprentissage en Cloud, DevOps, Backend, Networking et AI",
+  "author": "Daniel Beni Niyobuzima",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "new:article": "node scripts/new-article.js",
+    "new:lab": "node scripts/new-lab.js",
+    "new:project": "node scripts/new-project.js",
+    "search:index": "node scripts/build-search-index.js",
+    "docker:build": "docker build -t my-tech-watch-blog .",
+    "docker:run": "docker run -p 3000:3000 my-tech-watch-blog"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "fuse.js": "^7.0.0",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^0.445.0",
+    "next": "^14.2.0",
+    "next-intl": "^3.20.0",
+    "next-mdx-remote": "^5.0.0",
+    "next-themes": "^0.4.6",
+    "prism-react-renderer": "^2.4.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-syntax-highlighter": "^16.1.0",
+    "reading-time": "^1.5.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-highlight": "^7.0.0",
+    "rehype-slug": "^6.0.0",
+    "remark": "^15.0.1",
+    "remark-gfm": "^4.0.0",
+    "remark-html": "^16.0.1",
+    "tailwind-merge": "^2.5.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "autoprefixer": "^10.4.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^16.0.4",
+    "postcss": "^8.4.0",
+    "prettier": "^3.3.0",
+    "prettier-plugin-tailwindcss": "^0.6.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
