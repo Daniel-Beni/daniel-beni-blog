@@ -51,7 +51,7 @@ export default async function SearchPage({
       {!query ? (
         <div className="rounded-lg border border-dashed border-gray-300 p-8 text-center text-gray-600 dark:border-gray-700 dark:text-gray-400">
           {locale === 'fr'
-            ? 'Tapez quelques mots-clǸs pour lancer une recherche.'
+            ? 'Tapez quelques mots-clés pour lancer une recherche.'
             : 'Type a few keywords to start searching.'}
         </div>
       ) : results.length === 0 ? (

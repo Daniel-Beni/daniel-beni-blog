@@ -31,11 +31,13 @@ export default async function ProjectsPage({
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary-50 text-primary-600 dark:bg-primary-950 dark:text-primary-300">
           <FolderGit2 className="h-6 w-6" />
         </div>
+      /*
         <p className="mt-4 font-semibold">
           {locale === 'fr'
             ? 'Ajoutez vos projets dans content/projects.'
             : 'Add your projects under content/projects.'}
         </p>
+      */
         <p className="text-sm">
           {locale === 'fr'
             ? 'Ils apparaîtront ici avec leur stack, liens et statut.'
