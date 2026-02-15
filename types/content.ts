@@ -1,14 +1,15 @@
-export type Category = 
-  | 'cloud' 
-  | 'devops' 
-  | 'backend' 
-  | 'networking' 
-  | 'ai-data' 
-  | 'emerging-tech';
+export type Category =
+  | 'cloud'
+  | 'devops'
+  | 'backend'
+  | 'networking'
+  | 'ai-data'
+  | 'emerging-tech'
+  | 'dsa';
 
 export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
 
-export type ContentType = 'blog' | 'lab' | 'project';
+export type ContentType = 'blog' | 'lab' | 'project' | 'dsa';
 
 export type Locale = 'fr' | 'en';
 
@@ -43,6 +44,39 @@ export interface Frontmatter {
   image?: string;
   duration?: string;
   prerequisites?: string[];
+
+  // ===== AIO Metadata =====
+
+  /** Compétences démontrées — pour le sourcing IA et recruteurs
+   *  Ex: ["containerization", "orchestration", "yaml-configuration"] */
+  competencies?: string[];
+
+  /** Outils/technologies utilisés — matching recruteur
+   *  Ex: ["Docker", "kubectl", "Minikube"] */
+  tools_used?: string[];
+
+  /** Niveau de complexité ou notation Big-O
+   *  Ex: "production-ready" | "proof-of-concept" | "O(n log n)" */
+  complexity_level?: string;
+
+  /** Résumé TL;DR optimisé pour l'extraction IA
+   *  Ex: "Comment déployer un pod Kubernetes en 5 étapes avec Minikube" */
+  tldr?: string;
+
+  // ===== DSA-specific =====
+
+  /** URL du problème LeetCode */
+  leetcode_url?: string;
+
+  /** Numéro du problème LeetCode */
+  leetcode_number?: number;
+
+  /** Difficulté LeetCode */
+  leetcode_difficulty?: 'easy' | 'medium' | 'hard';
+
+  /** Pattern algorithmique identifié
+   *  Ex: "hash-map", "two-pointers", "sliding-window" */
+  pattern?: string;
 }
 
 export interface Article {

@@ -1,0 +1,24 @@
+# Daniel Beni - Tech Watch Blog
+
+> Portfolio technique d'un étudiant ingénieur en développement logiciel, cloud computing et IA à ISEN Méditerranée (Toulon, France). Ce site documente un apprentissage actif avec des articles de veille, des labs pratiques et des projets techniques.
+
+Compétences documentées : Docker, Kubernetes, CI/CD, Python, TypeScript, Next.js, AWS, Machine Learning, Git, Linux, Rust, Java, C++
+
+Ce site contient quatre types de contenu :
+- **Blog** : Articles de veille technologique et analyses techniques (cloud, DevOps, backend, IA)
+- **Labs** : Tutoriels pratiques étape par étape avec code source et résultats
+- **Projects** : Projets techniques complets avec repositories GitHub
+- **DSA** : Solutions LeetCode documentées avec analyse de complexité et patterns algorithmiques
+
+## Blog Articles
+- [Introduction à Kubernetes](https://www.danielbeni.com/fr/blog/cloud/kubernetes-intro): Déploiement d'une première application conteneurisée sur un cluster local
+- [Guide Docker 2025](https://www.danielbeni.com/fr/blog/devops/docker-guide): Guide complet Docker pour développeurs - conteneurisation, images, volumes, réseaux
+- [Post-Mortem Cloudflare](https://www.danielbeni.com/fr/blog/cloud/cloudflare-incident-november-2025): Analyse technique de la panne Cloudflare Nov 2025
+- [Guide DevSecOps](https://www.danielbeni.com/fr/blog/devops/devsecops-complete-guide): Guide complet DevSecOps
+
+## About
+- [À propos](https://www.danielbeni.com/fr/about): Parcours académique et professionnel, compétences techniques, contact
+
+## Source Code
+- [GitHub](https://github.com/Daniel-Beni): Repositories et contributions open-source
+- [GitLab](https://gitlab.com/Daniel_Beni): Projets académiques et collaboratifs

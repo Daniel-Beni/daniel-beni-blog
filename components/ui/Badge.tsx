@@ -1,9 +1,10 @@
 import { cn } from '@/lib/utils';
 
 interface BadgeProps {
-  children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+  children?: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'outline';
   className?: string;
+  key?: React.Key;
 }
 
 export function Badge({ children, variant = 'secondary', className }: BadgeProps) {
@@ -22,6 +23,8 @@ export function Badge({ children, variant = 'secondary', className }: BadgeProps
             variant === 'warning',
           'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200':
             variant === 'danger',
+          'border border-gray-300 bg-transparent dark:border-gray-600':
+            variant === 'outline',
         },
         className
       )}

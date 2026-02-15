@@ -42,7 +42,7 @@ export function searchContent(
   locale: Locale,
   options?: {
     limit?: number;
-    types?: Array<'blog' | 'lab' | 'project'>;
+    types?: Array<'blog' | 'lab' | 'project' | 'dsa'>;
     category?: string;
   }
 ): SearchResult[] {
@@ -50,7 +50,7 @@ export function searchContent(
     return [];
   }
 
-  const types = options?.types || ['blog', 'lab', 'project'];
+  const types = options?.types || ['blog', 'lab', 'project', 'dsa'];
   const allArticles: Article[] = [];
 
   types.forEach(type => {
@@ -84,7 +84,7 @@ export function searchByTags(
   locale: Locale,
   options?: {
     limit?: number;
-    type?: 'blog' | 'lab' | 'project';
+    type?: 'blog' | 'lab' | 'project' | 'dsa';
   }
 ): SearchResult[] {
   const type = options?.type || 'blog';
@@ -128,6 +128,7 @@ export function getSuggestions(
     ...getAllArticles('blog', locale),
     ...getAllArticles('lab', locale),
     ...getAllArticles('project', locale),
+    ...getAllArticles('dsa', locale),
   ];
 
   const titles = allArticles.map(a => a.frontmatter.title);

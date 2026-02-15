@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import {ArrowLeft} from 'lucide-react';
-import {getTranslations, unstable_setRequestLocale} from 'next-intl/server';
+import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {ArticleCard} from '@/components/blog/ArticleCard';
 import {getAllArticles} from '@/lib/content';
@@ -41,7 +41,7 @@ export default async function CategoryPage({
     notFound();
   }
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = await getTranslations({locale, namespace: 'blog'});
   const articles = getAllArticles('blog', locale as Locale, {
     sortBy: 'date',

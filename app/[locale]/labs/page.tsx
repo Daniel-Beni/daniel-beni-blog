@@ -1,5 +1,5 @@
 import {FlaskConical, Rocket} from 'lucide-react';
-import {getTranslations, unstable_setRequestLocale} from 'next-intl/server';
+import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {locales} from '@/i18n';
 
@@ -14,7 +14,7 @@ export default async function LabsPage({
     notFound();
   }
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = await getTranslations({locale, namespace: 'labs'});
 
   return (

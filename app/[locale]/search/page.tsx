@@ -3,7 +3,7 @@ import {ArticleCard} from '@/components/blog/ArticleCard';
 import {searchContent} from '@/lib/search';
 import type {Locale} from '@/types/content';
 import {locales} from '@/i18n';
-import {getTranslations, unstable_setRequestLocale} from 'next-intl/server';
+import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 
 export default async function SearchPage({
@@ -19,7 +19,7 @@ export default async function SearchPage({
     notFound();
   }
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   const queryParam = searchParams.q;
   const query = Array.isArray(queryParam) ? queryParam[0] : queryParam || '';
@@ -40,7 +40,7 @@ export default async function SearchPage({
         </h1>
       </header>
 
-      <SearchBar locale={locale} initialQuery={query} placeholder={t('placeholder')} autoFocus />
+      <SearchBar locale={locale} initialQuery={query} placeholder={await t('placeholder')} autoFocus />
 
       {query && (
         <p className="text-sm text-gray-600 dark:text-gray-400">

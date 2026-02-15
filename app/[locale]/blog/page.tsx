@@ -1,4 +1,4 @@
-import {unstable_setRequestLocale, getTranslations} from 'next-intl/server';
+import {setRequestLocale, getTranslations} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {ArticleCard} from '@/components/blog/ArticleCard';
 import {CategoryFilter} from '@/components/blog/CategoryFilter';
@@ -35,7 +35,7 @@ export default async function BlogPage({
     ? (requestedCategory as Category)
     : undefined;
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
   const t = await getTranslations({locale, namespace: 'blog'});
   const articles = getAllArticles('blog', locale as Locale, {
     sortBy: 'date',

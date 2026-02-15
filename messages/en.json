@@ -4,6 +4,7 @@
     "blog": "Blog",
     "labs": "Labs",
     "projects": "Projects",
+    "dsa": "DSA",
     "series": "Series",
     "about": "About",
     "search": "Search"
@@ -75,6 +76,10 @@
     "nextSteps": "Next steps",
     "viewOnGithub": "View on GitHub"
   },
+  "dsa": {
+    "title": "Data Structures & Algorithms",
+    "description": "Documented LeetCode solutions with complexity analysis and algorithmic patterns. Hash Map, Two Pointers, Sliding Window, and more."
+  },
   "projects": {
     "title": "Projects Portfolio",
     "description": "My personal and professional projects",
@@ -100,6 +105,7 @@
       "title": "Quick Links",
       "blog": "Blog",
       "labs": "Labs",
+      "dsa": "DSA",
       "projects": "Projects",
       "about": "About"
     },

@@ -94,6 +94,7 @@ export function getCategoryName(
     'networking': { fr: 'Réseau & Sécurité', en: 'Network & Security' },
     'ai-data': { fr: 'IA & Data Science', en: 'AI & Data Science' },
     'emerging-tech': { fr: 'Technologies Émergentes', en: 'Emerging Technologies' },
+    'dsa': { fr: 'Structures de données & Algorithmes', en: 'Data Structures & Algorithms' },
   };
 
   return categories[category]?.[locale] || category;
@@ -110,6 +111,7 @@ export function getCategoryColor(category: string): string {
     'networking': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
     'ai-data': 'bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200',
     'emerging-tech': 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200',
+    'dsa': 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200',
   };
 
   return colors[category] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';

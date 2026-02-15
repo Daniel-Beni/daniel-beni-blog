@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {Calendar, ArrowLeft} from 'lucide-react';
+import {Calendar, ArrowLeft, ExternalLink} from 'lucide-react';
 import {notFound} from 'next/navigation';
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {remark} from 'remark';
@@ -12,10 +12,9 @@ import {
   getAllSlugs,
   getArticleBySlug,
   getRelatedArticles,
-  getSeriesNavigation
 } from '@/lib/content';
 import {formatDate, getCategoryColor, getCategoryName, getDifficultyLabel} from '@/lib/utils';
-import {getBlogPostingJsonLd} from '@/lib/jsonld';
+import {getDsaJsonLd} from '@/lib/jsonld';
 import type {Locale} from '@/types/content';
 import {locales} from '@/i18n';
 
@@ -31,11 +30,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const {locale, slug} = params;
   const fullSlug = Array.isArray(slug) ? slug.join('/') : slug;
-  const article = getArticleBySlug('blog', fullSlug, locale as Locale);
-  if (!article) return {title: locale === 'fr' ? 'Article non trouvé' : 'Article not found'};
+  const article = getArticleBySlug('dsa', fullSlug, locale as Locale);
+  if (!article) return {title: locale === 'fr' ? 'Problème non trouvé' : 'Problem not found'};
 
   const {frontmatter} = article;
-  const url = `https://www.danielbeni.com/${locale}/blog/${fullSlug}`;
+  const url = `https://www.danielbeni.com/${locale}/dsa/${fullSlug}`;
 
   return {
     title: `${frontmatter.title} | Daniel Beni`,
@@ -45,8 +44,8 @@ export async function generateMetadata({
     alternates: {
       canonical: url,
       languages: {
-        fr: `/fr/blog/${fullSlug}`,
-        en: `/en/blog/${fullSlug}`,
+        fr: `/fr/dsa/${fullSlug}`,
+        en: `/en/dsa/${fullSlug}`,
       },
     },
     openGraph: {
@@ -71,15 +70,15 @@ export async function generateMetadata({
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
-    getAllSlugs('blog', locale as Locale).map((slug) => ({
+    getAllSlugs('dsa', locale as Locale).map((slug) => ({
       locale,
-      slug: slug.split('/')
+      slug: slug.split('/'),
     }))
   );
 }
 
-export default async function ArticlePage({
-  params
+export default async function DsaArticlePage({
+  params,
 }: {
   params: {locale: string; slug: string[]};
 }) {
@@ -92,7 +91,7 @@ export default async function ArticlePage({
   setRequestLocale(locale);
 
   const fullSlug = Array.isArray(slug) ? slug.join('/') : slug;
-  const article = getArticleBySlug('blog', fullSlug, locale as Locale);
+  const article = getArticleBySlug('dsa', fullSlug, locale as Locale);
 
   if (!article) {
     notFound();
@@ -101,38 +100,49 @@ export default async function ArticlePage({
   const t = await getTranslations({locale, namespace: 'blog'});
   const html = await markdownToHtml(article.content);
   const related = getRelatedArticles(article, locale as Locale, 3);
-  const seriesNav = getSeriesNavigation(article, locale as Locale);
   const {frontmatter} = article;
+  const fm = frontmatter as typeof frontmatter & {
+    leetcode_url?: string;
+    leetcode_number?: number;
+    leetcode_difficulty?: string;
+    pattern?: string;
+    complexity_level?: string;
+  };
 
   return (
     <article className="container-custom space-y-12 py-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(getBlogPostingJsonLd(article, locale as Locale)),
+          __html: JSON.stringify(getDsaJsonLd(article, locale as Locale)),
         }}
       />
       <div className="flex flex-col gap-4">
         <Link
-          href={`/${locale}/blog`}
+          href={`/${locale}/dsa`}
           className="inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          {locale === 'fr' ? 'Retour au blog' : 'Back to blog'}
+          {locale === 'fr' ? 'Retour au DSA' : 'Back to DSA'}
         </Link>
 
         <div className="flex flex-wrap items-center gap-2">
           <Badge className={getCategoryColor(frontmatter.category)}>
             {getCategoryName(frontmatter.category, locale as Locale)}
           </Badge>
-          {frontmatter.featured && (
-            <Badge variant="warning">
-              {locale === 'fr' ? 'En vedette' : 'Featured'}
+          {fm.pattern && (
+            <Badge variant="secondary">
+              {fm.pattern}
             </Badge>
           )}
           {frontmatter.difficulty && (
             <Badge variant="secondary">
               {getDifficultyLabel(frontmatter.difficulty, locale as Locale)}
+            </Badge>
+          )}
+          {fm.leetcode_difficulty && (
+            <Badge variant="outline">
+              LeetCode {fm.leetcode_difficulty}
             </Badge>
           )}
         </div>
@@ -157,7 +167,24 @@ export default async function ArticlePage({
           <span>
             {t('author')} {frontmatter.author}
           </span>
+          {fm.complexity_level && (
+            <span className="font-mono text-primary-600 dark:text-primary-400">
+              {fm.complexity_level}
+            </span>
+          )}
         </div>
+
+        {fm.leetcode_url && (
+          <a
+            href={fm.leetcode_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800"
+          >
+            <ExternalLink className="h-4 w-4" />
+            {locale === 'fr' ? 'Voir sur LeetCode' : 'View on LeetCode'}
+          </a>
+        )}
 
         {frontmatter.tags?.length > 0 && (
           <div className="flex flex-wrap gap-2">
@@ -175,41 +202,10 @@ export default async function ArticlePage({
         dangerouslySetInnerHTML={{__html: html}}
       />
 
-      {(seriesNav.previous || seriesNav.next) && (
-        <div className="grid gap-4 rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900 md:grid-cols-2">
-          {seriesNav.previous && (
-            <Link
-              href={`/${locale}/blog/${seriesNav.previous.slug}`}
-              className="group block rounded-lg border border-transparent p-3 transition hover:border-primary-200 dark:hover:border-primary-900"
-            >
-              <p className="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400">
-                {t('previousArticle')}
-              </p>
-              <p className="mt-1 font-semibold text-gray-900 group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-400">
-                {seriesNav.previous.frontmatter.title}
-              </p>
-            </Link>
-          )}
-          {seriesNav.next && (
-            <Link
-              href={`/${locale}/blog/${seriesNav.next.slug}`}
-              className="group block rounded-lg border border-transparent p-3 transition hover:border-primary-200 dark:hover:border-primary-900 md:text-right"
-            >
-              <p className="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400">
-                {t('nextArticle')}
-              </p>
-              <p className="mt-1 font-semibold text-gray-900 group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-400">
-                {seriesNav.next.frontmatter.title}
-              </p>
-            </Link>
-          )}
-        </div>
-      )}
-
       {related.length > 0 && (
         <section className="space-y-4">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {t('relatedArticles')}
+            {locale === 'fr' ? 'Problèmes similaires' : 'Related problems'}
           </h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {related.map((item) => (

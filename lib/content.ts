@@ -19,6 +19,8 @@ export function getAllSlugs(type: ContentType, locale: Locale): string[] {
   const categories = fs.readdirSync(typeDirectory);
   const slugs: string[] = [];
 
+  const slugSet = new Set<string>();
+
   categories.forEach(category => {
     const categoryPath = path.join(typeDirectory, category);
     if (fs.statSync(categoryPath).isDirectory()) {
@@ -28,17 +30,28 @@ export function getAllSlugs(type: ContentType, locale: Locale): string[] {
           const filePath = path.join(categoryPath, file);
           const fileContents = fs.readFileSync(filePath, 'utf8');
           const { data } = matter(fileContents);
-          
-          // Filtre par langue et statut de publication
-          if (data.language === locale && data.published !== false) {
-            slugs.push(`${category}/${file.replace(/\.mdx?$/, '')}`);
-          }
+          if (data.published === false) return;
+
+          let slugBase = file.replace(/\.mdx?$/, '');
+          const localeSuffix = slugBase.endsWith('.en')
+            ? 'en'
+            : slugBase.endsWith('.fr')
+              ? 'fr'
+              : null;
+          if (localeSuffix) slugBase = slugBase.slice(0, -(localeSuffix.length + 1));
+          const slug = `${category}/${slugBase}`;
+
+          const matchesLocale =
+            localeSuffix !== null
+              ? localeSuffix === locale
+              : data.language === locale;
+          if (matchesLocale) slugSet.add(slug);
         }
       });
     }
   });
 
-  return slugs;
+  return Array.from(slugSet);
 }
 
 /**
@@ -50,12 +63,19 @@ export function getArticleBySlug(
   locale: Locale
 ): Article | null {
   try {
-    const filePath = path.join(contentDirectory, type, `${slug}.md`);
-    const mdxPath = path.join(contentDirectory, type, `${slug}.mdx`);
-    
-    const actualPath = fs.existsSync(filePath) ? filePath : mdxPath;
-    
-    if (!fs.existsSync(actualPath)) {
+    const localeSuffixPath = path.join(contentDirectory, type, `${slug}.${locale}.md`);
+    const defaultPath = path.join(contentDirectory, type, `${slug}.md`);
+    const defaultMdxPath = path.join(contentDirectory, type, `${slug}.mdx`);
+
+    const actualPath = fs.existsSync(localeSuffixPath)
+      ? localeSuffixPath
+      : fs.existsSync(defaultPath)
+        ? defaultPath
+        : fs.existsSync(defaultMdxPath)
+          ? defaultMdxPath
+          : null;
+
+    if (!actualPath || !fs.existsSync(actualPath)) {
       return null;
     }
 

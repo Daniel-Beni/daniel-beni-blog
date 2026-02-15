@@ -22,6 +22,7 @@ export function Header({ locale }: HeaderProps) {
     { name: t('home'), href: `/${locale}` },
     { name: t('blog'), href: `/${locale}/blog` },
     { name: t('labs'), href: `/${locale}/labs` },
+    { name: t('dsa'), href: `/${locale}/dsa` },
     { name: t('projects'), href: `/${locale}/projects` },
     { name: t('about'), href: `/${locale}/about` },
   ];

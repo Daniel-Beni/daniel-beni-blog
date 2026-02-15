@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import {BookOpen, FolderGit2, FlaskConical, ArrowRight, Sparkles} from 'lucide-react';
-import {getTranslations, unstable_setRequestLocale} from 'next-intl/server';
+import {BookOpen, FolderGit2, FlaskConical, ArrowRight, Sparkles, Code2} from 'lucide-react';
+import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {ArticleCard} from '@/components/blog/ArticleCard';
 import {Badge} from '@/components/ui/Badge';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/Card';
@@ -20,7 +20,7 @@ export default async function HomePage({
     notFound();
   }
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
   const t = await getTranslations({locale, namespace: 'home'});
   const featuredArticles = getAllArticles('blog', locale as Locale, {
@@ -30,6 +30,7 @@ export default async function HomePage({
   const latestArticles = getAllArticles('blog', locale as Locale, {
     limit: 3
   });
+  const latestDsa = getAllArticles('dsa', locale as Locale, {limit: 3});
 
   const categories = [
     {id: 'cloud', label: t('categories.cloud')},
@@ -184,6 +185,43 @@ export default async function HomePage({
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {latestArticles.map((article) => (
+              <ArticleCard key={article.slug} article={article} locale={locale} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section className="container-custom space-y-8">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm uppercase tracking-widest text-primary-600 dark:text-primary-400">
+              {locale === 'fr' ? 'DSA' : 'DSA'}
+            </p>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              {locale === 'fr' ? 'Dernières solutions DSA' : 'Latest DSA solutions'}
+            </h2>
+          </div>
+          <Link
+            href={`/${locale}/dsa`}
+            className="inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400"
+          >
+            {locale === 'fr' ? 'Voir tout' : 'View all'}
+            <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
+        </div>
+
+        {latestDsa.length === 0 ? (
+          <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-gray-600 dark:border-gray-700 dark:text-gray-400">
+            <Code2 className="mx-auto mb-2 h-10 w-10 text-primary-500 dark:text-primary-400" />
+            <p className="text-sm">
+              {locale === 'fr'
+                ? 'Les solutions LeetCode apparaîtront ici. Utilisez scripts/new-dsa.js pour en ajouter.'
+                : 'LeetCode solutions will appear here. Use scripts/new-dsa.js to add some.'}
+            </p>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {latestDsa.map((article) => (
               <ArticleCard key={article.slug} article={article} locale={locale} />
             ))}
           </div>

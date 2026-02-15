@@ -8,6 +8,7 @@ import { formatDate, getCategoryColor, getCategoryName } from '@/lib/utils';
 interface ArticleCardProps {
   article: Article;
   locale: string;
+  key?: React.Key;
 }
 
 export function ArticleCard({ article, locale }: ArticleCardProps) {

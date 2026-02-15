@@ -1,5 +1,6 @@
 import {NextIntlClientProvider} from 'next-intl';
-import {getMessages, unstable_setRequestLocale} from 'next-intl/server';
+import type {AbstractIntlMessages} from 'next-intl';
+import {getMessages, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {ThemeProvider} from 'next-themes';
 import {Footer} from '@/components/layout/Footer';
@@ -7,10 +8,26 @@ import {Header} from '@/components/layout/Header';
 import {locales} from '@/i18n';
 import type {Metadata} from 'next';
 
+const SITE_URL = 'https://www.danielbeni.com';
+
 export const metadata: Metadata = {
-  title: 'Tech Watch Blog',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Daniel Beni — Tech Watch Blog',
+    template: '%s | Daniel Beni',
+  },
   description:
-    'Articles, labs et projets autour du cloud, du DevOps, du backend et de la data.'
+    'Articles, labs, projets et solutions DSA. Veille technique et apprentissage en cloud, DevOps, backend et IA — Daniel Beni Niyobuzima.',
+  authors: [{name: 'Daniel Beni Niyobuzima', url: SITE_URL}],
+  openGraph: {
+    type: 'website',
+    siteName: 'Daniel Beni - Tech Watch Blog',
+    locale: 'fr_FR',
+    alternateLocale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 };
 
 export function generateStaticParams() {
@@ -30,9 +47,9 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  unstable_setRequestLocale(locale);
+  setRequestLocale(locale);
 
-  const messages = await getMessages();
+  const messages = (await getMessages()) as AbstractIntlMessages;
 
   return (
     <html lang={locale} suppressHydrationWarning>
