@@ -29,9 +29,9 @@ export function generateStaticParams() {
 export default async function CategoryPage({
   params
 }: {
-  params: {locale: string; category: string};
+  params: Promise<{locale: string; category: string}>;
 }) {
-  const {locale, category} = params;
+  const {locale, category} = await params;
 
   if (!locales.includes(locale as any)) {
     notFound();

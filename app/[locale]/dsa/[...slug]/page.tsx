@@ -26,9 +26,9 @@ async function markdownToHtml(markdown: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: {locale: string; slug: string[]};
+  params: Promise<{locale: string; slug: string[]}>;
 }): Promise<Metadata> {
-  const {locale, slug} = params;
+  const {locale, slug} = await params;
   const fullSlug = Array.isArray(slug) ? slug.join('/') : slug;
   const article = getArticleBySlug('dsa', fullSlug, locale as Locale);
   if (!article) return {title: locale === 'fr' ? 'Problème non trouvé' : 'Problem not found'};
@@ -80,9 +80,9 @@ export function generateStaticParams() {
 export default async function DsaArticlePage({
   params,
 }: {
-  params: {locale: string; slug: string[]};
+  params: Promise<{locale: string; slug: string[]}>;
 }) {
-  const {locale, slug} = params;
+  const {locale, slug} = await params;
 
   if (!locales.includes(locale as any)) {
     notFound();

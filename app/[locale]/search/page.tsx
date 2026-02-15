@@ -10,10 +10,11 @@ export default async function SearchPage({
   params,
   searchParams
 }: {
-  params: {locale: string};
-  searchParams: Record<string, string | string[] | undefined>;
+  params: Promise<{locale: string}>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const {locale} = params;
+  const {locale} = await params;
+  const resolvedSearchParams = await searchParams;
 
   if (!locales.includes(locale as any)) {
     notFound();
@@ -21,7 +22,7 @@ export default async function SearchPage({
 
   setRequestLocale(locale);
 
-  const queryParam = searchParams.q;
+  const queryParam = resolvedSearchParams.q;
   const query = Array.isArray(queryParam) ? queryParam[0] : queryParam || '';
 
   const t = await getTranslations({locale, namespace: 'search'});

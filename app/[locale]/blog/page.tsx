@@ -11,10 +11,11 @@ export default async function BlogPage({
   params,
   searchParams
 }: {
-  params: {locale: string};
-  searchParams?: Record<string, string | string[] | undefined>;
+  params: Promise<{locale: string}>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const {locale} = params;
+  const {locale} = await params;
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
 
   if (!locales.includes(locale as any)) {
     notFound();
@@ -30,7 +31,7 @@ export default async function BlogPage({
   ];
 
   const requestedCategory =
-    typeof searchParams?.category === 'string' ? searchParams?.category : undefined;
+    typeof resolvedSearchParams?.category === 'string' ? resolvedSearchParams?.category : undefined;
   const activeCategory = categories.includes(requestedCategory as Category)
     ? (requestedCategory as Category)
     : undefined;

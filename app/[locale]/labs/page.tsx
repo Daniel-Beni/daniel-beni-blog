@@ -6,9 +6,9 @@ import {locales} from '@/i18n';
 export default async function LabsPage({
   params
 }: {
-  params: {locale: string};
+  params: Promise<{locale: string}>;
 }) {
-  const {locale} = params;
+  const {locale} = await params;
 
   if (!locales.includes(locale as any)) {
     notFound();
