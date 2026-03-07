@@ -2,7 +2,6 @@ import {NextIntlClientProvider} from 'next-intl';
 import type {AbstractIntlMessages} from 'next-intl';
 import {getMessages, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
-import {ThemeProvider} from 'next-themes';
 import {Footer} from '@/components/layout/Footer';
 import {Header} from '@/components/layout/Header';
 import {locales} from '@/i18n';
@@ -36,7 +35,7 @@ export function generateStaticParams() {
 
 export default async function LocaleLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
   params: Promise<{locale: string}>;
@@ -52,21 +51,14 @@ export default async function LocaleLayout({
   const messages = (await getMessages()) as AbstractIntlMessages;
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body className="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
+    <html lang={locale}>
+      <body className="bg-white text-gray-800">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <div className="flex min-h-screen flex-col">
-              <Header locale={locale} />
-              <main className="flex-1">{children}</main>
-              <Footer locale={locale} />
-            </div>
-          </ThemeProvider>
+          <div className="flex min-h-screen flex-col">
+            <Header locale={locale} />
+            <main className="flex-1">{children}</main>
+            <Footer locale={locale} />
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

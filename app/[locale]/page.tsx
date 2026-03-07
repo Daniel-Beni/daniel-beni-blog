@@ -1,16 +1,13 @@
 import Link from 'next/link';
-import {BookOpen, FolderGit2, FlaskConical, ArrowRight, Sparkles, Code2} from 'lucide-react';
-import {getTranslations, setRequestLocale} from 'next-intl/server';
-import {ArticleCard} from '@/components/blog/ArticleCard';
-import {Badge} from '@/components/ui/Badge';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/Card';
-import {getAllArticles} from '@/lib/content';
-import type {Locale} from '@/types/content';
-import {locales} from '@/i18n';
+import {ChevronRight} from 'lucide-react';
+import {setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
+import {locales} from '@/i18n';
+import {domains, getDomainContentCount} from '@/lib/domains';
+import type {Locale} from '@/types/content';
 
 export default async function HomePage({
-  params
+  params,
 }: {
   params: Promise<{locale: string}>;
 }) {
@@ -22,211 +19,72 @@ export default async function HomePage({
 
   setRequestLocale(locale);
 
-  const t = await getTranslations({locale, namespace: 'home'});
-  const featuredArticles = getAllArticles('blog', locale as Locale, {
-    featured: true,
-    limit: 3
-  });
-  const latestArticles = getAllArticles('blog', locale as Locale, {
-    limit: 3
-  });
-  const latestDsa = getAllArticles('dsa', locale as Locale, {limit: 3});
+  const isFr = locale === 'fr';
 
-  const categories = [
-    {id: 'cloud', label: t('categories.cloud')},
-    {id: 'devops', label: t('categories.devops')},
-    {id: 'backend', label: t('categories.backend')},
-    {id: 'networking', label: t('categories.networking')},
-    {id: 'ai-data', label: t('categories.ai')},
-    {id: 'emerging-tech', label: t('categories.emerging')}
-  ];
+  const domainData = domains.map((domain) => ({
+    ...domain,
+    count: getDomainContentCount(domain, locale as Locale),
+  }));
 
   return (
-    <div className="space-y-16">
-      <section className="bg-gradient-to-br from-primary-600/10 via-white to-purple-600/10 py-16 dark:from-primary-900/20 dark:via-gray-950 dark:to-purple-900/10">
-        <div className="container-custom grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="space-y-6">
-            <Badge variant="primary" className="text-sm">
-              <Sparkles className="mr-2 h-4 w-4" />
-              {t('hero.greeting')}
-            </Badge>
-            <h1 className="text-4xl font-bold leading-tight text-gray-900 dark:text-white sm:text-5xl">
-              {t('hero.title')}
-            </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
-              {t('hero.subtitle')}
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href={`/${locale}/blog`}
-                className="btn btn-primary inline-flex items-center gap-2"
+    <div className="container-narrow">
+      {/* Hero */}
+      <section className="pb-8 pt-16 text-center">
+        <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-gray-100 text-4xl">
+          👨‍💻
+        </div>
+        <h1 className="text-base font-semibold text-gray-900">Daniel</h1>
+        <p className="mx-auto mt-2 max-w-md text-[15px] leading-relaxed text-gray-500">
+          {isFr
+            ? 'Je documente mon apprentissage en ingénierie logicielle, Cloud, DevOps et IA. Explorez mes projets, guides et labs par domaine.'
+            : 'I document my learning in software engineering, Cloud, DevOps and AI. Explore my projects, guides and labs by domain.'}
+        </p>
+      </section>
+
+      {/* Section title */}
+      <h2 className="pb-4 pt-4 text-center text-lg font-semibold text-gray-900">
+        {isFr ? 'Domaines' : 'Domains'}
+      </h2>
+
+      {/* Domain list */}
+      <div className="mb-16">
+        {domainData.map((domain) => (
+          <Link
+            key={domain.id}
+            href={`/${locale}/domain/${domain.id}`}
+            className="group flex items-center gap-5 rounded-lg border-b border-gray-100 px-0 py-5 transition-colors last:border-b-0 hover:-mx-4 hover:bg-gray-50 hover:px-4"
+          >
+            {/* Progress circle */}
+            <div
+              className={`flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center rounded-full border-[3px] ${
+                domain.count > 0 ? 'border-teal-500' : 'border-gray-200'
+              }`}
+            >
+              <span
+                className={`font-mono text-xs font-medium ${
+                  domain.count > 0 ? 'text-teal-600' : 'text-gray-400'
+                }`}
               >
-                {t('hero.cta.blog')}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href={`/${locale}/projects`}
-                className="btn btn-secondary inline-flex items-center gap-2"
-              >
-                {t('hero.cta.projects')}
-              </Link>
-            </div>
-            <div className="flex flex-wrap gap-3 text-sm text-gray-600 dark:text-gray-400">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
-                <BookOpen className="h-4 w-4 text-primary-600 dark:text-primary-400" />
-                Blog, guides, veille tech
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
-                <FlaskConical className="h-4 w-4 text-primary-600 dark:text-primary-400" />
-                Labs pratiques
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
-                <FolderGit2 className="h-4 w-4 text-primary-600 dark:text-primary-400" />
-                Projets open-source
+                {domain.count}
               </span>
             </div>
-          </div>
-          <div className="grid gap-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>{locale === 'fr' ? 'Thèmes principaux' : 'Main Topics'}</CardTitle>
-                <CardDescription>
-                  {locale === 'fr'
-                    ? 'Cloud, DevOps, backend, réseau, IA et nouvelles tendances technologiques.'
-                    : 'Cloud, DevOps, backend, networking, AI and emerging tech.'}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <Badge key={category.id} variant="secondary">
-                    {category.label}
-                  </Badge>
-                ))}
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>{locale === 'fr' ? 'Formats' : 'Formats'}</CardTitle>
-                <CardDescription>
-                  {locale === 'fr'
-                    ? 'Articles, séries, labs guidés, notes et projets.'
-                    : 'Articles, series, guided labs, notes and projects.'}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                {['Blog', 'Labs', 'Projects', 'Series', 'Notes'].map((item) => (
-                  <Badge key={item}>{item}</Badge>
-                ))}
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
-      <section className="container-custom space-y-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-widest text-primary-600 dark:text-primary-400">
-              {locale === 'fr' ? 'Le meilleur du moment' : 'Top picks'}
-            </p>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {t('featured.title')}
-            </h2>
-          </div>
-          <Link
-            href={`/${locale}/blog`}
-            className="inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400"
-          >
-            {t('featured.viewAll')}
-            <ArrowRight className="ml-1 h-4 w-4" />
+            {/* Info */}
+            <div className="min-w-0 flex-1">
+              <h3 className="text-[15px] font-semibold text-gray-900">
+                {domain.name[locale as Locale]}
+              </h3>
+              <p className="text-[13px] text-gray-400">
+                {domain.count} {isFr ? 'contenus' : 'items'} ·{' '}
+                {domain.description[locale as Locale]}
+              </p>
+            </div>
+
+            {/* Arrow */}
+            <ChevronRight className="h-5 w-5 flex-shrink-0 text-gray-300 transition-transform group-hover:translate-x-0.5 group-hover:text-teal-500" />
           </Link>
-        </div>
-
-        {featuredArticles.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-gray-600 dark:border-gray-700 dark:text-gray-400">
-            {locale === 'fr'
-              ? 'Ajoutez un article avec le champ featured: true pour le voir ici.'
-              : 'Add an article with featured: true to showcase it here.'}
-          </div>
-        ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {featuredArticles.map((article) => (
-              <ArticleCard key={article.slug} article={article} locale={locale} />
-            ))}
-          </div>
-        )}
-      </section>
-
-      <section className="container-custom space-y-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-widest text-primary-600 dark:text-primary-400">
-              {locale === 'fr' ? 'Dernières publications' : 'Latest posts'}
-            </p>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {locale === 'fr' ? 'Nouveaux articles' : 'New articles'}
-            </h2>
-          </div>
-          <Link
-            href={`/${locale}/blog`}
-            className="inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400"
-          >
-            {locale === 'fr' ? 'Voir tout' : 'View all'}
-            <ArrowRight className="ml-1 h-4 w-4" />
-          </Link>
-        </div>
-
-        {latestArticles.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-gray-600 dark:border-gray-700 dark:text-gray-400">
-            {locale === 'fr'
-              ? 'Aucun article publié pour le moment.'
-              : 'No articles published yet.'}
-          </div>
-        ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {latestArticles.map((article) => (
-              <ArticleCard key={article.slug} article={article} locale={locale} />
-            ))}
-          </div>
-        )}
-      </section>
-
-      <section className="container-custom space-y-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-widest text-primary-600 dark:text-primary-400">
-              {locale === 'fr' ? 'DSA' : 'DSA'}
-            </p>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {locale === 'fr' ? 'Dernières solutions DSA' : 'Latest DSA solutions'}
-            </h2>
-          </div>
-          <Link
-            href={`/${locale}/dsa`}
-            className="inline-flex items-center text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400"
-          >
-            {locale === 'fr' ? 'Voir tout' : 'View all'}
-            <ArrowRight className="ml-1 h-4 w-4" />
-          </Link>
-        </div>
-
-        {latestDsa.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-gray-600 dark:border-gray-700 dark:text-gray-400">
-            <Code2 className="mx-auto mb-2 h-10 w-10 text-primary-500 dark:text-primary-400" />
-            <p className="text-sm">
-              {locale === 'fr'
-                ? 'Les solutions LeetCode apparaîtront ici. Utilisez scripts/new-dsa.js pour en ajouter.'
-                : 'LeetCode solutions will appear here. Use scripts/new-dsa.js to add some.'}
-            </p>
-          </div>
-        ) : (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {latestDsa.map((article) => (
-              <ArticleCard key={article.slug} article={article} locale={locale} />
-            ))}
-          </div>
-        )}
-      </section>
+        ))}
+      </div>
     </div>
   );
 }
