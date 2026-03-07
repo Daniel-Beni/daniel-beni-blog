@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const createNextIntlPlugin = require('next-intl/plugin');
 
-// Pas de path : le plugin utilise par défaut i18n/request.ts à la racine
-const withNextIntl = createNextIntlPlugin();
+// On pointe EXPLICITEMENT vers le fichier de requête
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig = {
   reactStrictMode: true,
@@ -14,37 +14,21 @@ const nextConfig = {
     ],
     formats: ['image/avif', 'image/webp'],
   },
-
-  // ENLEVÉ experimental.optimizeCss qui cause l'erreur critters
   
-  // Headers de sécurité
   async headers() {
     return [
       {
         source: '/:path*',
         headers: [
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on'
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN'
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
-          }
+          { key: 'X-DNS-Prefetch-Control', value: 'on' },
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'origin-when-cross-origin' }
         ]
       }
     ];
   },
 
-  // Redirections
   async redirects() {
     return [
       {

@@ -10,7 +10,7 @@ export function Card({ children, className, hover = true }: CardProps) {
   return (
     <div
       className={cn(
-        'rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800',
+        'rounded-lg border border-gray-200 bg-white p-6 shadow-sm',
         hover && 'transition-shadow hover:shadow-md',
         className
       )}
@@ -36,7 +36,7 @@ interface CardTitleProps {
 
 export function CardTitle({ children, className }: CardTitleProps) {
   return (
-    <h3 className={cn('text-lg font-semibold text-gray-900 dark:text-gray-100', className)}>
+    <h3 className={cn('text-lg font-semibold text-gray-900', className)}>
       {children}
     </h3>
   );
@@ -49,7 +49,7 @@ interface CardDescriptionProps {
 
 export function CardDescription({ children, className }: CardDescriptionProps) {
   return (
-    <p className={cn('text-sm text-gray-600 dark:text-gray-400', className)}>
+    <p className={cn('text-sm text-gray-600', className)}>
       {children}
     </p>
   );
