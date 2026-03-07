@@ -1,30 +1,25 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { Menu, X, Search, Globe } from 'lucide-react';
-import { useState } from 'react';
-import { ThemeToggle } from '../ui/ThemeToggle';
-import { Button } from '../ui/Button';
-import { cn } from '@/lib/utils';
+import {usePathname} from 'next/navigation';
+import {useTranslations} from 'next-intl';
+import {Menu, X, Globe} from 'lucide-react';
+import {useState} from 'react';
+import {cn} from '@/lib/utils';
 
 interface HeaderProps {
   locale: string;
 }
 
-export function Header({ locale }: HeaderProps) {
+export function Header({locale}: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const t = useTranslations('nav');
 
   const navigation = [
-    { name: t('home'), href: `/${locale}` },
-    { name: t('blog'), href: `/${locale}/blog` },
-    { name: t('labs'), href: `/${locale}/labs` },
-    { name: t('dsa'), href: `/${locale}/dsa` },
-    { name: t('projects'), href: `/${locale}/projects` },
-    { name: t('about'), href: `/${locale}/about` },
+    {name: t('home'), href: `/${locale}`},
+    {name: t('catalogue') || 'Catalogue', href: `/${locale}/catalogue`},
+    {name: t('about'), href: `/${locale}/about`},
   ];
 
   const isActive = (href: string) => {
@@ -41,92 +36,86 @@ export function Header({ locale }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/80">
-      <nav className="container-custom">
-        <div className="flex h-16 items-center justify-between">
+    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
+      <nav className="container-narrow">
+        <div className="flex h-14 items-center justify-between">
           {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center space-x-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary-600 to-purple-600">
-              <span className="text-xl font-bold text-white">DB</span>
+          <Link href={`/${locale}`} className="flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-gray-900 text-sm font-bold text-white">
+              DB
             </div>
-            <span className="hidden text-xl font-bold text-gray-900 dark:text-white sm:block">
-              Tech Watch
+            <span className="text-[15px] font-semibold text-gray-900">
+              daniel.beni
             </span>
           </Link>
 
           {/* Navigation desktop */}
-          <div className="hidden items-center space-x-1 md:flex">
+          <div className="hidden items-center gap-1 md:flex">
             {navigation.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                  'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
                   isActive(item.href)
-                    ? 'bg-gray-100 text-primary-600 dark:bg-gray-800 dark:text-primary-400'
-                    : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                    ? 'text-gray-900'
+                    : 'text-gray-500 hover:text-gray-900'
                 )}
               >
                 {item.name}
               </Link>
             ))}
-          </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2">
-            <Link href={`/${locale}/search`}>
-              <Button variant="ghost" size="sm" className="h-9 w-9 p-0">
-                <Search className="h-5 w-5" />
-                <span className="sr-only">{t('search')}</span>
-              </Button>
-            </Link>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-9 w-9 p-0"
+            {/* Language toggle */}
+            <button
               onClick={toggleLocale}
+              className="ml-4 flex items-center gap-1 rounded-md px-2 py-1.5 text-sm text-gray-400 transition-colors hover:text-gray-600"
               title={locale === 'fr' ? 'Switch to English' : 'Passer en français'}
             >
-              <Globe className="h-5 w-5" />
-              <span className="sr-only">Change language</span>
-            </Button>
-
-            <ThemeToggle />
-
-            {/* Menu mobile */}
-            <button
-              className="md:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
+              <Globe className="h-4 w-4" />
+              <span className="text-xs font-medium uppercase">{locale === 'fr' ? 'EN' : 'FR'}</span>
             </button>
           </div>
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5 text-gray-600" />
+            ) : (
+              <Menu className="h-5 w-5 text-gray-600" />
+            )}
+          </button>
         </div>
 
-        {/* Menu mobile */}
+        {/* Mobile menu */}
         {mobileMenuOpen && (
-          <div className="border-t border-gray-200 py-4 dark:border-gray-800 md:hidden">
-            <div className="flex flex-col space-y-2">
+          <div className="border-t border-gray-100 py-3 md:hidden">
+            <div className="flex flex-col gap-1">
               {navigation.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                    'rounded-md px-3 py-2 text-sm font-medium transition-colors',
                     isActive(item.href)
-                      ? 'bg-gray-100 text-primary-600 dark:bg-gray-800 dark:text-primary-400'
-                      : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                      ? 'text-gray-900'
+                      : 'text-gray-500 hover:text-gray-900'
                   )}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
+              <button
+                onClick={toggleLocale}
+                className="flex items-center gap-1.5 px-3 py-2 text-sm text-gray-400"
+              >
+                <Globe className="h-4 w-4" />
+                {locale === 'fr' ? 'English' : 'Français'}
+              </button>
             </div>
           </div>
         )}

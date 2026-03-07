@@ -2,9 +2,11 @@
  * Type declarations for lucide-react when node_modules is not yet installed
  * or when package types are not resolved. Remove or ignore once npm install succeeds.
  */
+
 declare module 'lucide-react' {
   import type { SVGProps } from 'react';
   type IconComponent = (props: SVGProps<SVGSVGElement>) => JSX.Element;
+  export const ChevronRight: IconComponent;
   export const Code2: IconComponent;
   export const Calendar: IconComponent;
   export const ArrowLeft: IconComponent;

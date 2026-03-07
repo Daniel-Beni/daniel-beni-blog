@@ -1,6 +1,7 @@
 {
   "nav": {
     "home": "Accueil",
+    "catalogue": "Catalogue",
     "blog": "Blog",
     "labs": "Labs",
     "projects": "Projets",
@@ -118,7 +119,7 @@
       "linkedin": "LinkedIn",
       "email": "Email"
     },
-    "copyright": "© {year} Daniel Beni Niyobuzima. Tous droits réservés.",
+    "copyright": "© {year} Daniel Béni Niyobuzima. Tous droits réservés.",
     "builtWith": "Construit avec Next.js, TypeScript et Tailwind CSS"
   },
   "common": {
