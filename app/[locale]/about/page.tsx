@@ -55,7 +55,7 @@ export default async function AboutPage({
     : "I'm Daniel Beni Niyobuzima, a software engineering student specializing in cloud computing and AI at ISEN Méditerranée (Toulon). This site documents my tech watch, hands-on labs, and progress in algorithms.";
 
   const goal = isFr
-    ? "Objectif : rejoindre une équipe technique exigeante (cloud, backend, DevOps ou IA) où je peux appliquer et approfondir ces compétences."
+    ? "Objectif : rejoindre une équipe dynamique et exigeante (cloud, backend, DevOps ou IA) où je peux appliquer et approfondir ces compétences."
     : "Goal: join a demanding technical team (cloud, backend, DevOps or AI) where I can apply and deepen these skills.";
 
   const timeline = [
@@ -67,15 +67,15 @@ export default async function AboutPage({
     },
     {
       period: '2022 – 2024',
-      title: isFr ? 'Administrateur systèmes et réseaux' : 'Systems & network administrator',
-      org: 'BRARUDI (Heineken)',
-      detail: isFr ? 'Infrastructure, support, déploiements' : 'Infrastructure, support, deployments',
-    },
-    {
-      period: '2020 – 2022',
       title: isFr ? 'Licence Informatique' : 'Computer Science degree',
       org: isFr ? 'Université de Limoges' : 'University of Limoges',
       detail: isFr ? 'Licence' : 'Bachelor',
+    },
+    {
+      period: '2020 – 2022',
+      title: isFr ? 'Administrateur systèmes et réseaux' : 'Systems & network administrator',
+      org: 'BRARUDI (Heineken)',
+      detail: isFr ? 'Infrastructure, support, déploiements' : 'Infrastructure, support, deployments',
     },
     {
       period: '2018 – 2020',
