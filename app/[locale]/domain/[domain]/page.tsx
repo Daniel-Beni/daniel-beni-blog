@@ -16,7 +16,6 @@ export function generateStaticParams() {
   );
 }
 
-// Group articles by a rough "format" based on tags or content type
 function getContentFormat(article: Article): 'tutorial' | 'guide' | 'lab' | 'note' {
   const tags = article.frontmatter.tags.map((t) => t.toLowerCase());
   const title = article.frontmatter.title.toLowerCase();
@@ -36,7 +35,6 @@ function getContentFormat(article: Article): 'tutorial' | 'guide' | 'lab' | 'not
   ) {
     return 'guide';
   }
-  // Default: treat blog posts with project context as tutorials
   return 'guide';
 }
 
@@ -76,11 +74,9 @@ export default async function DomainPage({
   }
 
   setRequestLocale(locale);
-
   const isFr = locale === 'fr';
   const articles = getDomainArticles(domain, locale as Locale);
 
-  // Group articles by format
   const grouped: Record<string, Article[]> = {};
   for (const article of articles) {
     const format = getContentFormat(article);
@@ -88,42 +84,41 @@ export default async function DomainPage({
     grouped[format].push(article);
   }
 
-  // Order of format sections
   const formatOrder: Array<keyof typeof formatConfig> = ['tutorial', 'guide', 'lab', 'note'];
   let globalIndex = 0;
 
   return (
-    <div className="container-narrow">
+    <div className="mx-auto max-w-[780px] px-4 sm:px-6">
       {/* Back link */}
       <div className="pt-6">
         <Link
           href={`/${locale}`}
-          className="inline-flex items-center gap-1.5 text-sm text-gray-400 transition-colors hover:text-gray-600"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 transition-colors hover:text-primary-600"
         >
           <ArrowLeft className="h-4 w-4" />
-          {isFr ? 'Accueil' : 'Home'}
+          {isFr ? 'Retour au catalogue' : 'Back to catalogue'}
         </Link>
       </div>
 
-      {/* Domain header - centered like Odin */}
-      <section className="pb-6 pt-10 text-center">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-50 text-3xl">
+      {/* Domain header */}
+      <section className="pb-8 pt-10 text-center">
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary-50 text-3xl">
           {domain.icon}
         </div>
-        <h1 className="text-2xl font-bold text-gray-900">
-          {domain.name[locale as Locale]}
+        <h1 className="text-3xl font-bold text-gray-900">
+          {isFr ? domain.titleFr : domain.titleEn}
         </h1>
-        <p className="mt-1 text-sm text-gray-400">
-          {domain.description[locale as Locale]}
+        <p className="mt-2 text-gray-600">
+          {isFr ? domain.descFr : domain.descEn}
         </p>
       </section>
 
       {/* Legend */}
-      <div className="flex flex-wrap items-center justify-center gap-5 pb-2 pt-2">
+      <div className="flex flex-wrap items-center justify-center gap-6 pb-4 pt-2 border-b border-gray-100">
         {formatOrder.map((format) => (
-          <div key={format} className="flex items-center gap-1.5">
-            <div className={`h-2 w-2 rounded-full ${formatConfig[format].dotColor}`} />
-            <span className="text-xs text-gray-400">
+          <div key={format} className="flex items-center gap-2">
+            <div className={`h-2.5 w-2.5 rounded-full ${formatConfig[format].dotColor}`} />
+            <span className="text-sm font-medium text-gray-600">
               {formatConfig[format].label[locale as Locale]}
             </span>
           </div>
@@ -131,10 +126,10 @@ export default async function DomainPage({
       </div>
 
       {/* Content list */}
-      <div className="mb-16 mt-4">
+      <div className="mb-20 mt-8">
         {articles.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-gray-200 px-6 py-12 text-center">
-            <p className="text-sm text-gray-400">
+          <div className="rounded-xl border border-dashed border-gray-200 px-6 py-12 text-center">
+            <p className="text-gray-500">
               {isFr
                 ? 'Aucun contenu publié dans ce domaine pour le moment.'
                 : 'No content published in this domain yet.'}
@@ -146,51 +141,47 @@ export default async function DomainPage({
             if (!items || items.length === 0) return null;
 
             return (
-              <div key={format}>
-                {/* Section title */}
-                <h3 className="pb-2 pt-8 text-xs font-semibold uppercase tracking-wide text-gray-400">
+              <div key={format} className="mb-8">
+                <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-gray-400">
                   {formatConfig[format].label[locale as Locale]}
                 </h3>
 
-                {/* Items */}
-                {items.map((article) => {
-                  globalIndex += 1;
-                  const contentType = article.type === 'dsa' ? 'dsa' : 'blog';
+                <div className="flex flex-col gap-2">
+                  {items.map((article) => {
+                    globalIndex += 1;
+                    const contentType = article.type === 'dsa' ? 'dsa' : 'blog';
 
-                  return (
-                    <Link
-                      key={article.slug}
-                      href={`/${locale}/${contentType}/${article.slug}`}
-                      className="group flex items-center gap-4 border-b border-gray-100 py-3.5 transition-colors last:border-b-0 hover:bg-gray-50 hover:-mx-3 hover:px-3 hover:rounded-md"
-                    >
-                      {/* Number */}
-                      <span className="w-6 flex-shrink-0 text-center font-mono text-xs text-gray-300">
-                        {globalIndex}
-                      </span>
+                    return (
+                      <Link
+                        key={article.slug}
+                        href={`/${locale}/${contentType}/${article.slug}`}
+                        className="group flex items-center gap-4 rounded-lg border border-transparent p-3 transition-colors hover:bg-gray-50 hover:border-gray-100"
+                      >
+                        <span className="w-8 flex-shrink-0 text-center font-mono text-sm text-gray-400 group-hover:text-primary-600">
+                          {globalIndex.toString().padStart(2, '0')}
+                        </span>
 
-                      {/* Format dot */}
-                      <div className={`h-2 w-2 flex-shrink-0 rounded-full ${formatConfig[format].dotColor}`} />
+                        <div className={`h-2.5 w-2.5 flex-shrink-0 rounded-full ${formatConfig[format].dotColor}`} />
 
-                      {/* Content */}
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-[14px] font-medium text-gray-800 group-hover:text-gray-900">
-                          {article.frontmatter.title}
-                        </h4>
-                        <p className="mt-0.5 truncate text-xs text-gray-400">
-                          {article.frontmatter.tags.slice(0, 4).join(' · ')}
-                          {article.frontmatter.difficulty && (
-                            <> — {getDifficultyLabel(article.frontmatter.difficulty, locale as Locale)}</>
-                          )}
-                        </p>
-                      </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-base font-semibold text-gray-900 group-hover:text-primary-700">
+                            {article.frontmatter.title}
+                          </h4>
+                          <p className="mt-1 truncate text-sm text-gray-500">
+                            {article.frontmatter.tags.slice(0, 4).join(' · ')}
+                            {article.frontmatter.difficulty && (
+                              <> — {getDifficultyLabel(article.frontmatter.difficulty, locale as Locale)}</>
+                            )}
+                          </p>
+                        </div>
 
-                      {/* Reading time */}
-                      <span className="flex-shrink-0 font-mono text-xs text-gray-300">
-                        {article.readingTime} min
-                      </span>
-                    </Link>
-                  );
-                })}
+                        <span className="hidden sm:block flex-shrink-0 font-mono text-sm text-gray-400">
+                          {article.readingTime} min
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             );
           })

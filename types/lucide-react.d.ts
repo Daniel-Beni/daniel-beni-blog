@@ -6,6 +6,12 @@
 declare module 'lucide-react' {
   import type { SVGProps } from 'react';
   type IconComponent = (props: SVGProps<SVGSVGElement>) => JSX.Element;
+  export const Cloud: IconComponent;
+  export const Server: IconComponent;
+  export const Layout: IconComponent;
+  export const Shield: IconComponent;
+  export const LineChart: IconComponent;
+  export const Code2: IconComponent;
   export const ChevronRight: IconComponent;
   export const Code2: IconComponent;
   export const Calendar: IconComponent;
