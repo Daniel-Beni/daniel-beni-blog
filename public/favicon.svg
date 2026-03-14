@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <rect x="2" y="2" width="44" height="44" rx="8" fill="#ffffff"/>
+  <rect x="6" y="7" width="4" height="34" rx="2" fill="#0d9488"/>
+  <text x="28" y="34" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="24" fill="#111827" text-anchor="middle">DB</text>
+</svg>

@@ -11,9 +11,8 @@ export function Footer({locale}: FooterProps) {
   return (
     <footer className="border-t border-gray-200 bg-white">
       <div className="container-narrow py-6">
-        <div className="flex flex-col items-center justify-between gap-2 text-sm text-gray-400 sm:flex-row">
+        <div className="flex items-center justify-center text-sm text-gray-400">
           <p>{t('copyright', {year: currentYear})}</p>
-          <p>{t('builtWith')}</p>
         </div>
       </div>
     </footer>

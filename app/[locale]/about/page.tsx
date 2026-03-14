@@ -51,11 +51,11 @@ export default async function AboutPage({
   const isFr = locale === 'fr';
 
   const intro = isFr
-    ? "Je suis Daniel Beni Niyobuzima, étudiant ingénieur en développement logiciel, cloud computing et intelligence artificielle à ISEN Méditerranée (Toulon). Ce site documente ma veille technologique, mes labs pratiques et ma progression en algorithmique."
-    : "I'm Daniel Beni Niyobuzima, a software engineering student specializing in cloud computing and AI at ISEN Méditerranée (Toulon). This site documents my tech watch, hands-on labs, and progress in algorithms.";
+    ? "Je suis Daniel Beni Niyobuzima, étudiant ingénieur en développement logiciel, cloud computing et intelligence artificielle à ISEN Méditerranée (Toulon). Ici, je vous partage mon apprentissage dans les differents domaines de ma formation"
+    : "I'm Daniel Beni Niyobuzima, a software engineering student specializing in cloud computing and AI at ISEN Méditerranée (Toulon). Here, I share my learning journey across various domains of my education.";
 
   const goal = isFr
-    ? "Objectif : rejoindre une équipe dynamique et exigeante (cloud, backend, DevOps ou IA) où je peux appliquer et approfondir ces compétences."
+    ? "Objectif : rejoindre une équipe dynamique et exigeante en tant que stagiaire ou apprenti où je peux appliquer et approfondir ces compétences."
     : "Goal: join a demanding technical team (cloud, backend, DevOps or AI) where I can apply and deepen these skills.";
 
   const timeline = [
@@ -71,18 +71,7 @@ export default async function AboutPage({
       org: isFr ? 'Université de Limoges' : 'University of Limoges',
       detail: isFr ? 'Licence' : 'Bachelor',
     },
-    {
-      period: '2020 – 2022',
-      title: isFr ? 'Administrateur systèmes et réseaux' : 'Systems & network administrator',
-      org: 'BRARUDI (Heineken)',
-      detail: isFr ? 'Infrastructure, support, déploiements' : 'Infrastructure, support, deployments',
-    },
-    {
-      period: '2018 – 2020',
-      title: isFr ? 'DUT Systèmes et Réseaux' : 'DUT Systems & Networks',
-      org: isFr ? 'Burundi' : 'Burundi',
-      detail: 'DUT',
-    },
+    
   ];
 
   const skillsByDomain = [
@@ -92,7 +81,7 @@ export default async function AboutPage({
     },
     {
       title: isFr ? 'Développement' : 'Development',
-      items: ['Python', 'TypeScript', 'Next.js', 'Rust', 'Java', 'C++'],
+      items: ['Python', 'JavaScript', 'React', 'Rust', 'Java', 'C++'],
     },
     {
       title: isFr ? 'IA & Data' : 'AI & Data',
