@@ -12,11 +12,11 @@ const SITE_URL = 'https://www.danielbeni.com';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Daniel Beni — Tech Watch Blog',
+    default: 'Daniel Beni | Blog',
     template: '%s | Daniel Beni',
   },
   description:
-    'Articles, labs, projets et solutions DSA. Veille technique et apprentissage en cloud, DevOps, backend et IA — Daniel Beni Niyobuzima.',
+    "plateforme d'apprentissage en ligne qui propose une large gamme de cours, tutoriels, ressources et accompagnements personnalisés pour aider les étudiants à réussir dans leurs études et à atteindre leurs objectifs académiques.",
   authors: [{name: 'Daniel Beni Niyobuzima', url: SITE_URL}],
   icons: {
     icon: [

@@ -15,8 +15,8 @@ export async function generateMetadata({
   const isFr = locale === 'fr';
   return {
     title: isFr
-      ? 'À propos — Daniel Beni Niyobuzima'
-      : 'About — Daniel Beni Niyobuzima',
+      ? 'À propos - Daniel Beni Niyobuzima'
+      : 'About - Daniel Beni Niyobuzima',
     description: isFr
       ? 'Étudiant ingénieur en développement logiciel, cloud computing et IA. Parcours, compétences et liens.'
       : 'Software engineering student specializing in cloud computing and AI. Background, skills and links.',
@@ -27,8 +27,8 @@ export async function generateMetadata({
     openGraph: {
       title: 'Daniel Beni Niyobuzima',
       description: isFr
-        ? 'Portfolio technique — Cloud, DevOps, Backend, IA'
-        : 'Technical portfolio — Cloud, DevOps, Backend, AI',
+        ? 'Portfolio technique - Cloud, DevOps, Backend, IA'
+        : 'Technical portfolio - Cloud, DevOps, Backend, AI',
       url: `https://www.danielbeni.com/${locale}/about`,
       type: 'profile',
     },
@@ -60,13 +60,13 @@ export default async function AboutPage({
 
   const timeline = [
     {
-      period: isFr ? '2024 – aujourd\'hui' : '2024 – present',
+      period: isFr ? '2024 - aujourd\'hui' : '2024 – present',
       title: isFr ? 'Étudiant ingénieur' : 'Engineering student',
       org: 'ISEN Méditerranée',
       detail: isFr ? 'Ingénierie logicielle & cloud' : 'Software & cloud engineering',
     },
     {
-      period: '2022 – 2024',
+      period: '2022 - 2024',
       title: isFr ? 'Licence Informatique' : 'Computer Science degree',
       org: isFr ? 'Université de Limoges' : 'University of Limoges',
       detail: isFr ? 'Licence' : 'Bachelor',
