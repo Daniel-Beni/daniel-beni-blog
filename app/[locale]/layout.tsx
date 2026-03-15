@@ -11,23 +11,23 @@ const SITE_URL = 'https://www.danielbeni.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  // Dans metadata de layout.tsx, ajoute :
-icons: {
-  icon: [
-    { url: '/favicon.svg', type: 'image/svg+xml' },
-    { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-    { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-  ],
-  apple: '/apple-touch-icon.png',
-},
-manifest: '/site.webmanifest',
   title: {
-    default: 'Daniel Beni — Porfolio, blog et veille technologique',
+    default: 'Daniel Beni — Tech Watch Blog',
     template: '%s | Daniel Beni',
   },
   description:
     'Articles, labs, projets et solutions DSA. Veille technique et apprentissage en cloud, DevOps, backend et IA — Daniel Beni Niyobuzima.',
   authors: [{name: 'Daniel Beni Niyobuzima', url: SITE_URL}],
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
   openGraph: {
     type: 'website',
     siteName: 'Daniel Beni - Tech Watch Blog',
